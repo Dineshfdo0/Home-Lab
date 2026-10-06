@@ -10,9 +10,6 @@ x-common-keys: &common-keys
       PUID: 1000
       PGID: 1000
       TZ: Europe/London
-    dns:
-      - 1.1.1.1
-      - 1.0.0.1
 
 services:
 ###############################################
@@ -113,7 +110,6 @@ services:
   jellyfin:
     <<: *common-keys
     container_name: jellyfin
-    network_mode: "service:gluetun"
     image: ghcr.io/hotio/jellyfin:latest
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -143,9 +139,9 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     environment:
-      - VPN_SERVICE_PROVIDER=nordvpn
+      - VPN_SERVICE_PROVIDER=private internet access
       - VPN_TYPE=openvpn # or wireguard
-      - OPENVPN_USER=p5562290
-      - OPENVPN_PASSWORD=jkqzVZPJP2
+      - OPENVPN_USER=
+      - OPENVPN_PASSWORD=
       - SERVER_REGIONS=Netherlands
     restart: unless-stopped
