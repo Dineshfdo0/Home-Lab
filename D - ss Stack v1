@@ -135,24 +135,24 @@ networks:
 
 gluetun:
     image: qmcgaw/gluetun
-container_name: gluetun
-ports:
-      - 7878:7878 #RADARR
-      - 8989:8989 #SONARR
-      - 8686:8686 #LIDARR
-      - 6767:6767 #BAZARR
-      - 9696:9696 #PROWLARR
-      - 8080:8080 #QBITTORRENT
-      - 6881:6881 #QBITTORRENT
-      - 6881:6881/udp #QBITTORRENT
-cap_add:
+    container_name: gluetun
+    ports:
+      - 9696:9696 #prowlarr
+      - 7878:7878 #radarr
+      - 8989:8989 #sonarr
+      - 6767:6767 #bazarr
+      - 8686:8686 #lidarr
+      - 8080:8080 #qbittorrent
+      - 6881:6881 #qbittorrent
+      - 6881:6881/udp #qbittorrent
+    cap_add:
       - NET_ADMIN
-devices:
+    devices:
       - /dev/net/tun:/dev/net/tun
-volumes:
-      - ./gluetun:/gluetun
-environment:
-      - VPN_SERVICE_PROVIDER=private internet access
+    environment:
+      - VPN_SERVICE_PROVIDER=nordvpn
+      - VPN_TYPE=openvpn
       - OPENVPN_USER=p5562290
       - OPENVPN_PASSWORD=jkqzVZPJP2
-      - SERVER_REGIONS=Netherlands, Switzerland, Germany
+      - SERVER_REGIONS=Netherlands
+    restart: unless-stopped
