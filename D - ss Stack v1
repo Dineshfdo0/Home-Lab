@@ -122,18 +122,11 @@ services:
     ports:
       - 8096:8096
 
-###############################################
-# ARR Stack Dedicated Network
-###############################################
-
-networks:
-  default:
-    name: arr_network
 
 ###############################################
 ###############################################
 
-gluetun:
+  gluetun:
     image: qmcgaw/gluetun
     container_name: gluetun
     ports:
@@ -151,7 +144,7 @@ gluetun:
       - /dev/net/tun:/dev/net/tun
     environment:
       - VPN_SERVICE_PROVIDER=nordvpn
-      - VPN_TYPE=openvpn
+      - VPN_TYPE=openvpn # or wireguard
       - OPENVPN_USER=p5562290
       - OPENVPN_PASSWORD=jkqzVZPJP2
       - SERVER_REGIONS=Netherlands
