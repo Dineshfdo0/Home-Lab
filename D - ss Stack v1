@@ -23,8 +23,7 @@ services:
     container_name: radarr
     network_mode: "service:gluetun"
     image: ghcr.io/hotio/radarr:latest
-    ports:
-      - 7878:7878
+    
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/radarr:/config
@@ -39,8 +38,7 @@ services:
     container_name: sonarr
     network_mode: "service:gluetun"
     image: ghcr.io/hotio/sonarr:latest
-    ports:
-      - 8989:8989
+    
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/sonarr:/config
@@ -55,8 +53,7 @@ services:
     container_name: lidarr
     network_mode: "service:gluetun"
     image: ghcr.io/hotio/lidarr:latest
-    ports:
-      - 8686:8686
+    
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/lidarr:/config
@@ -71,8 +68,7 @@ services:
     container_name: bazarr
     network_mode: "service:gluetun"
     image: ghcr.io/hotio/bazarr:latest
-    ports:
-      - 6767:6767
+    
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/bazarr:/config
@@ -87,8 +83,7 @@ services:
     container_name: prowlarr
     network_mode: "service:gluetun"
     image: ghcr.io/hotio/prowlarr:latest
-    ports:
-      - 9696:9696
+    
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /docker/appdata/prowlarr:/config
@@ -102,10 +97,7 @@ services:
     container_name: qbittorrent
     network_mode: "service:gluetun"
     image: ghcr.io/hotio/qbittorrent:latest
-    ports:
-      - 8080:8080
-      - 6881:6881
-      - 6881:6881/udp
+    
     environment:
       - WEBUI_PORT=8080
       - TORRENTING_PORT=6881
@@ -143,8 +135,8 @@ networks:
 
 gluetun:
     image: qmcgaw/gluetun
-	container_name: gluetun
-	ports:
+container_name: gluetun
+ports:
       - 7878:7878 #RADARR
       - 8989:8989 #SONARR
       - 8686:8686 #LIDARR
@@ -153,15 +145,14 @@ gluetun:
       - 8080:8080 #QBITTORRENT
       - 6881:6881 #QBITTORRENT
       - 6881:6881/udp #QBITTORRENT
-    cap_add:
+cap_add:
       - NET_ADMIN
-    devices:
+devices:
       - /dev/net/tun:/dev/net/tun
-    volumes:
+volumes:
       - ./gluetun:/gluetun
-    environment:
+environment:
       - VPN_SERVICE_PROVIDER=private internet access
       - OPENVPN_USER=p5562290
       - OPENVPN_PASSWORD=jkqzVZPJP2
       - SERVER_REGIONS=Netherlands, Switzerland, Germany
-
